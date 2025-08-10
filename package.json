@@ -24,6 +24,7 @@
     "docker:dev": "docker build -t backend-boilerplate . && docker run -p 3000:3000 --env-file .env backend-boilerplate"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
@@ -32,6 +33,8 @@
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/throttler": "^6.4.0",
+    "@octokit/rest": "^22.0.0",
+    "@supabase/supabase-js": "^2.50.3",
     "axios": "^1.10.0",
     "bcryptjs": "^3.0.2",
     "class-transformer": "^0.5.1",
