@@ -7,10 +7,11 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
+import { User, UserResponse } from './entities/user.entity';
 
 @Injectable()
 export class AuthService {
-  private users: any[] = []; // In-memory storage for demo purposes
+  private users: User[] = []; // In-memory storage for demo purposes
 
   constructor(private readonly jwtService: JwtService) {}
 
@@ -27,7 +28,7 @@ export class AuthService {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     // Create user
-    const user = {
+    const user: User = {
       id: Date.now().toString(),
       email,
       name,
@@ -41,13 +42,15 @@ export class AuthService {
     const payload = { sub: user.id, email: user.email };
     const token = this.jwtService.sign(payload);
 
+    const userResponse: UserResponse = {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      createdAt: user.createdAt,
+    };
+
     return {
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        createdAt: user.createdAt,
-      },
+      user: userResponse,
       token,
     };
   }
@@ -71,18 +74,20 @@ export class AuthService {
     const payload = { sub: user.id, email: user.email };
     const token = this.jwtService.sign(payload);
 
+    const userResponse: UserResponse = {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      createdAt: user.createdAt,
+    };
+
     return {
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        createdAt: user.createdAt,
-      },
+      user: userResponse,
       token,
     };
   }
 
-  async findById(id: string) {
+  findById(id: string): User | undefined {
     return this.users.find((user) => user.id === id);
   }
 }
