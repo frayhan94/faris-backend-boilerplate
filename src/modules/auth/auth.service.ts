@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  ConflictException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
@@ -14,7 +18,7 @@ export class AuthService {
     const { email, password, name } = registerDto;
 
     // Check if user already exists
-    const existingUser = this.users.find(user => user.email === email);
+    const existingUser = this.users.find((user) => user.email === email);
     if (existingUser) {
       throw new ConflictException('User with this email already exists');
     }
@@ -52,7 +56,7 @@ export class AuthService {
     const { email, password } = loginDto;
 
     // Find user
-    const user = this.users.find(u => u.email === email);
+    const user = this.users.find((u) => u.email === email);
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
@@ -79,6 +83,6 @@ export class AuthService {
   }
 
   async findById(id: string) {
-    return this.users.find(user => user.id === id);
+    return this.users.find((user) => user.id === id);
   }
 }

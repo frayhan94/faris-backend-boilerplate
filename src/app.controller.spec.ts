@@ -16,7 +16,9 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Hello World! Backend Boilerplate is running."', () => {
-      expect(appController.getHello()).toBe('Hello World! Backend Boilerplate is running.');
+      expect(appController.getHello()).toBe(
+        'Hello World! Backend Boilerplate is running.',
+      );
     });
   });
 });
